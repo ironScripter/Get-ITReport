@@ -52,7 +52,7 @@
     https://chromebookparadise.wordpress.com/
     james.arnett@gmail.com
     #>
-    Param([switch]$Hardware,[switch]$UpTime,[switch]$QFE,[switch]$ShutdownLog,[switch]$Service,[string]$Server,[switch]$QFEDaily)
+    [cmdletbinding()]Param([switch]$Hardware,[switch]$UpTime,[switch]$QFE,[switch]$ShutdownLog,[switch]$Service,[string]$Server,[switch]$QFEDaily)
     Function Get-ServerList{   
         [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
         $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
@@ -63,9 +63,7 @@
         If ($Show -eq "OK"){
             Return $OpenFileDialog.filename
             }Else{
-                Write-Error "Operation cancelled by user."
-                Pause
-                exit
+                Write-Error "Operation cancelled by user." -ErrorAction Stop
                 }
         
     }
@@ -79,9 +77,7 @@
         If ($Show -eq "OK"){
             Return $objForm.SelectedPath
             }Else{
-                Write-Error "Operation cancelled by user."
-                Pause
-                exit
+                Write-Error "Operation cancelled by user." -ErrorAction Stop
                 }
     }
     if(!$server){
